@@ -7,16 +7,6 @@ from django.shortcuts import render
 
 # http request
 def home(request):
-   return render(request, 'recipes/home.html', context={
+   return render(request, 'recipes/pages/home.html', context={
     'name': 'Mauricio J Joaquim',
    })
-
-
-   # http request
-def sobre(request):
-   return HttpResponse('SOBRE')
-
-
-   # http request
-def contato(request):
-   return HttpResponse('CONTATO')
