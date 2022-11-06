@@ -1,5 +1,7 @@
+# Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
+
 from utils.recipe.factory import make_recipe
 
 # Create your views here.
