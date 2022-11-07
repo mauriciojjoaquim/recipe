@@ -32,6 +32,6 @@ class Recipe(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, default=None,)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
-    def __dir__(self):
+    def __str__(self):
         return self.title
 
