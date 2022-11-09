@@ -266,3 +266,19 @@ h6 {
     transform: scale(1.02);
     box-shadow: -8px 8px 18px rgba(0 0, 0, .25);
 }
+.preparation_steps h1,
+.preparation_steps h2,
+.preparation_steps h3,
+.preparation_steps h4,
+.preparation_steps h5,
+.preparation_steps h6,
+.preparation_steps h1, 
+.preparation_steps p,
+.preparation_steps pre{
+    margin: 2rem 0 ;
+}
+preparation_steps ol,
+.preparation_steps ul{
+    margin: 3rem 0;
+    padding: 0 3rem;
+}
