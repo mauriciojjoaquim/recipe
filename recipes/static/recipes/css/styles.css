@@ -282,3 +282,13 @@ preparation_steps ol,
     margin: 3rem 0;
     padding: 0 3rem;
 }
+.center{
+    text-align: center;
+}
+
+.m-x {
+margin: 0 var(--spacing-gutter-medium) ;
+}
+.m-y{
+margin: var(--spacing-gutter-medium) 0;
+}
