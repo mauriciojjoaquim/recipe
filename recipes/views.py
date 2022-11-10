@@ -9,9 +9,10 @@ from utils.recipe.factory import make_recipe
 
 # http request
 def home(request):
-   recipes = Recipe.objects.filter(
+   recipes = get_list_or_404(Recipe.objects.filter(
       is_published=True,
-   ).order_by('-id')
+   ).order_by('-id'))
+
    return render(request, 'recipes/pages/home.html', context={
     'recipes': recipes,
    })
