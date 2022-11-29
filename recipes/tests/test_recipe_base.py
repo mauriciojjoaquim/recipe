@@ -3,7 +3,6 @@ from recipes.models import Category, Recipe, User
 
 class RecipeTestBase(TestCase):
     def setUp(self) -> None:
-        self.make_recipe()
         return super().setUp()
     
     def make_category(
@@ -66,4 +65,4 @@ class RecipeTestBase(TestCase):
             preparation_steps_is_html=preparation_steps_is_html,
             cover=cover,
             is_published=is_published,
-        )    
+        )
