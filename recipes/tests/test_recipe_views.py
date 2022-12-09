@@ -23,14 +23,31 @@ class RecipeViewTest(RecipeTestBase):
             response.content.decode('utf-8')
         )
         
-    def test_recipe_home_template_loads_recipes(self):
-        self.make_recipe()
+    def test_recipe_home_template_dont_loads_recipes_bot_published(self):
+        
+        # Need a recipe for this teste
+        self.make_recipe(is_published=False)
+        
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
         response_context_recipes = response.context['recipes']
         
-        self.assertIn('Recipe title', content)
-        self.assertEqual(len(response_context_recipes), 1)
+         # check if ome recipe exists
+        self.assertIn(
+            '<h1>No recipes found here</h1>',
+            response.content.decode('utf-8')
+        )
+        
+    def test_recipe_category_template_loads_recipes(self):
+        needed_title ='this is a category test'
+        # Need a recipe for this teste
+        self.make_recipe(title=needed_title)
+        
+        response = self.client.get(reverse('recipes:category', kwargs={'category_id': 1}))
+        content = response.content.decode('utf-8')
+        
+        # check if ome recipe exists
+        self.assertIn(needed_title, content)       
         
     def test_recipe_view_category_function_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
@@ -40,7 +57,32 @@ class RecipeViewTest(RecipeTestBase):
         response = self.client.get(
                 reverse('recipes:category', kwargs={'category_id': 1000})
         )
-        self.assertEqual(response.status_code, 404)    
+        self.assertEqual(response.status_code, 404) 
+    
+    def test_recipe_category_template_loads_recipes(self):
+        needed_title ='this is a category test'
+        # Need a recipe for this teste
+        self.make_recipe(title=needed_title)
+        
+        response = self.client.get(reverse('recipes:category', kwargs={'category_id': 1}))
+        content = response.content.decode('utf-8')
+        
+        # check if ome recipe exists
+        self.assertIn(needed_title, content) 
+        
+    def test_recipe_category_template_dont__loads_recipes_bot_published(self):
+        
+        # Need a recipe for this teste
+        self.make_recipe(is_published=False)
+        
+        response = self.client.get(
+                reverse('recipes:category', kwargs={'category_id': 1})
+        )
+        self.assertEqual(response.status_code, 404)
+    
+    def test_recipe_view_detail_function_is_correct(self):
+        view = resolve(reverse('recipes:recipe', kwargs={'id': 100000}))
+        self.assertIs(view.func, views.recipe)              
         
     def test_recipe_view_detail_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 100000}))
@@ -51,3 +93,24 @@ class RecipeViewTest(RecipeTestBase):
                 reverse('recipes:recipe', kwargs={'id': 10000})
         )
         self.assertEqual(response.status_code, 404)
+        
+    def test_recipe_detail_template_loads_the_correct_recipes(self):
+        needed_title ='this is a detail page - is load one recipe'
+        # Need a recipe for this teste
+        self.make_recipe(title=needed_title)
+        
+        response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
+        content = response.content.decode('utf-8')
+        
+        # check if ome recipe exists
+        self.assertIn(needed_title, content) 
+        
+    def test_recipe_detail_template_dont__loads_recipes_bot_published(self):
+        
+        # Need a recipe for this teste
+        self.make_recipe(is_published=False)
+        
+        response = self.client.get(
+                reverse('recipes:recipe', kwargs={'id': 1})
+        )
+        self.assertEqual(response.status_code, 404)       
