@@ -14,7 +14,7 @@ class RecipeModelTest(RecipeTestBase):
         author=self.make_author(username='Newuser'),
         title ='Recipe title',
         description ='Recipe description',
-        slug ='recipe_slug',
+        slug ='recipe-slug-for-no-defalts',
         preparation_time =10,
         preparation_time_unit ='Minutos',
         servings =2,
@@ -44,9 +44,20 @@ class RecipeModelTest(RecipeTestBase):
             recipe.preparation_steps_is_html, 
             msg='preparation_steps_is_html is not False'
         )
+        
     def test_recipe_is_published_is_flase_by_default(self):
         recipe = self.make_recipe_default()
         self.assertFalse(
             recipe.is_published, 
             msg='is_published is not False'
+        )
+        
+    def test_recipe_string_represetation(self):
+        needed = 'Testing Represeyation'
+        self.recipe.title = needed
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(
+            str(self.recipe), needed,
+            msg='Recipe string represetation must be "{needed}"'
         )
