@@ -406,6 +406,9 @@ margin: var(--spacing-gutter-medium) 0;
     background: var(--color-debug-light);
     color: var(--color-debug-dark);
 }
+.main-content h2 {
+    font-size: 30px;
+}
 
 @media (max-width: 600px) {
     .main-content-list,
