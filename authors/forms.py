@@ -50,9 +50,7 @@ class RegisterForm(forms.ModelForm):
     password2 = forms.CharField(
         required=True,
         widget=forms.PasswordInput(),
-        error_messages={
-            'required': 'Password must not be empty'
-        }
+        label = 'Password2',
     )
     class Meta:
         model = User
@@ -80,30 +78,6 @@ class RegisterForm(forms.ModelForm):
                 'required': 'This field must not be empty'
             }
         }
-
-    def clean_password(self):
-        data = self.cleaned_data.get('password')
-        
-        if 'atenção' in data:
-            raise ValidationError(
-                'Não Digite %(value)s no campo password',
-                code='invalid',
-                params={ 'value': '"atenção"'}
-            )
-        
-        return data
-    
-    def clean_first_name(self):
-        data = self.cleaned_data.get('first_name')
-        
-        if 'John Doe' in data:
-            raise ValidationError(
-                'Não Digite %(value)s no campo first name',
-                code='invalid',
-                params={ 'value': '"John Doe"'}
-            )
-        
-        return data
     
     def clean(self):
         cleaned_data = super().clean()
